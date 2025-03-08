@@ -8,7 +8,7 @@ public class TextHealthBar : HealthBar
 
     protected override void OnHealthChanged(float healthPercentage)
     {
-        _textCurrentHealth.text = _health.GetCurrentHealth().ToString();
-        _textMaxHealth.text = _health.GetMaxHealth().ToString();
+        _textCurrentHealth.text = Health.GetCurrentHealth().ToString();
+        _textMaxHealth.text = Health.GetMaxHealth().ToString();
     }
 }

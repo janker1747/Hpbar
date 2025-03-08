@@ -2,25 +2,25 @@ using UnityEngine;
 
 public abstract class HealthBar : MonoBehaviour
 {
-    protected Health _health;
+    protected Health Health;
 
     protected virtual void Awake()
     {
-        _health = GetComponent<Health>();
+        Health = GetComponent<Health>();
 
-        if (_health == null)
+        if (Health == null)
         {
             return;
         }
 
-        _health.HealthChange += OnHealthChanged;
+        Health.HealthChange += OnHealthChanged;
     }
 
     protected virtual void OnDestroy()
     {
-        if (_health != null)
+        if (Health != null)
         {
-            _health.HealthChange -= OnHealthChanged;
+            Health.HealthChange -= OnHealthChanged;
         }
     }
 

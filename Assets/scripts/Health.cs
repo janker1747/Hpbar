@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UIElements.Experimental;
 
 public class Health : MonoBehaviour
 {
@@ -19,14 +20,23 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        if (damage < 0)
+        {
+            return;
+        }
+
         ChangeHealth(-damage);
     }
 
     public void RecoverHealth(float amount)
     {
+        if (amount < 0)
+        {
+            return;
+        }
+
         ChangeHealth(amount);
     }
-
 
     private void ChangeHealth(float value)
     {
@@ -37,7 +47,7 @@ public class Health : MonoBehaviour
         if (0 <= _currentHealth)
         {
             currentHealthAsPercantage = _currentHealth / _maxHealth;
-            HealthChange?.Invoke(currentHealthAsPercantage); 
+            HealthChange?.Invoke(currentHealthAsPercantage);
         }
     }
 }
