@@ -2,25 +2,25 @@ using UnityEngine;
 
 public abstract class HealthBar : MonoBehaviour
 {
-    protected Health Health;
+    [SerializeField] private  Health _health;
+
+    protected Health Health => _health;
 
     protected virtual void Awake()
     {
-        Health = GetComponent<Health>();
-
-        if (Health == null)
+        if (_health == null)
         {
             return;
         }
 
-        Health.HealthChange += OnHealthChanged;
+        _health.HealthChange += OnHealthChanged;
     }
 
     protected virtual void OnDestroy()
     {
-        if (Health != null)
+        if (_health != null)
         {
-            Health.HealthChange -= OnHealthChanged;
+            _health.HealthChange -= OnHealthChanged;
         }
     }
 

@@ -10,7 +10,7 @@ public class HealthModifier : MonoBehaviour
 
     public event Action<float> ModifyHealth;
 
-    private void Awake()
+    private void OnEnable()
     {
         if (_button != null)
         {
@@ -18,7 +18,7 @@ public class HealthModifier : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         if (_button != null)
         {

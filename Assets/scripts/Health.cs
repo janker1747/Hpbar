@@ -5,6 +5,8 @@ using UnityEngine.UIElements.Experimental;
 public class Health : MonoBehaviour
 {
     [SerializeField] private float _maxHealth = 100f;
+    [SerializeField] private HealthModifier _damageButton;
+    [SerializeField] private HealthModifier _healingButton;
 
     private float _currentHealth;
 
@@ -18,14 +20,26 @@ public class Health : MonoBehaviour
         _currentHealth = _maxHealth;
     }
 
+    private void OnEnable()
+    {
+        _damageButton.ModifyHealth += TakeDamage;
+        _healingButton.ModifyHealth += RecoverHealth;
+    }
+
+    private void OnDisable()
+    {
+        _damageButton.ModifyHealth -= TakeDamage;
+        _healingButton.ModifyHealth -= RecoverHealth;
+    }
+
     public void TakeDamage(float damage)
     {
-        if (damage < 0)
+        if (damage > 0)
         {
             return;
         }
 
-        ChangeHealth(-damage);
+        ChangeHealth(damage);
     }
 
     public void RecoverHealth(float amount)
@@ -44,10 +58,7 @@ public class Health : MonoBehaviour
 
         _currentHealth = Mathf.Clamp(_currentHealth + value, 0, _maxHealth);
 
-        if (0 <= _currentHealth)
-        {
-            currentHealthAsPercantage = _currentHealth / _maxHealth;
-            HealthChange?.Invoke(currentHealthAsPercantage);
-        }
+        currentHealthAsPercantage = _currentHealth / _maxHealth;
+        HealthChange?.Invoke(currentHealthAsPercantage);
     }
 }
